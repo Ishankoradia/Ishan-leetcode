@@ -3,17 +3,20 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution:
+class Solution:       
+        
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
-        l = [] 
-        while head is not None:
-            l.append(head.val)
-            head = head.next
-        front = 0
-        end = len(l)-1
-        while front < end:
-            if l[front] != l[end]: 
-                return False
-            front += 1
-            end -= 1
-        return True
+        
+        self.frontPointer = head
+        
+        def recursivelyCheck(currentNode=head):
+            if currentNode is not None:
+                if not recursivelyCheck(currentNode.next):
+                    return False
+                if currentNode.val != self.frontPointer.val:
+                    return False
+                self.frontPointer = self.frontPointer.next
+            return True
+        
+        return recursivelyCheck()
+                
